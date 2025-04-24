@@ -1,0 +1,37 @@
+
+/* Primer rectangulo (el azul) */
+.uno{
+  border: 3px solid black; /* Borde azul*/
+  padding: 10px;
+  background-color: #FAE6FA; /* Fondo gris-claro */
+  width: 80%;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 15px;
+}
+
+/* Texto con fondo blanco */
+.mensaje {
+  border: 2px solid gold; /* borde amarillo (con grosor) */
+  background-color: lightgray; /* Fondo blancoo */
+  padding: 15px;
+  font-weight: bold; 
+}
+
+/* Contenedor de comentarios (con fondo anaranjado-caje) */
+.dos {
+  background-color: peru; /* color del fondo */
+  width: 80%;
+  margin: auto;
+  padding: 10px 0; 
+}
+
+/* Linea verde en comentarios */
+.comentario {
+  border-bottom: 3px solid green; /* Linea verde */
+  padding: 5px 20px; 
+  color: white; /* texto en color blaco */
+  font-size: 12px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
