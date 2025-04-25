@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Países – Datos seleccionados</title>
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
+    body{font-family:Arial,Helvetica,sans-serif;margin:2rem;}
+    h1{margin-top:0}
+    #buscador{margin-bottom:1rem;padding:6px 10px;width:260px;}
+    table{border-collapse:collapse;width:100%;}
+    th,td{border:1px solid #ccc;padding:6px;text-align:left;font-size:.9rem;}
+    th{background:#f2f2f2;}
+    tbody tr:nth-child(even){background:#fafafa;}
+    .cargando{font-style:italic;color:#666;}
+</style>
+</head>
+<body>
+
+<h1>Listado de Países</h1>
+
+<!-- Campo de busqueda para hacer el filtro -->
+<input type="text" id="buscador" placeholder="Buscar país…">
+
+<!-- Tabla para mostrar los paises-->
+<table id="tabla">
+  <thead>
+    <tr>
+      <th>Nombre (CLDR)</th>
+      <th>Capital</th>
+      <th>Código FIPS</th>
+      <th>Código FIFA</th>
+      <th>Continente</th>
+      <th>Idiomas</th>
+      <th>Geoname ID</th>
+      <th>Distintivo Vehículos (DS)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="8" class="cargando">Cargando datos…</td></tr>
+  </tbody>
+</table>
+
+<script>
+$(function(){
+
+  // url del archivo Json que contiene la informacion de los paises
+  const URL = "https://pkgstore.datahub.io/core/country-codes/country-codes_json/data/616b1fb83cbfd4eb6d9e7d52924bb00a/country-codes_json.json";
+
+  $.getJSON(URL)
+   .done(function(data){  // cargar datos
+
+      const $tbody = $("#tabla tbody").empty();// limpia el mensaje de cargando
+
+      // Generar filas con datos del json
+      data.forEach(pais=>{
+        
+        const fila = `
+          <tr>
+            <td>${pais["CLDR display name"]        || ""}</td>
+            <td>${pais["Capital"]                  || ""}</td>
+            <td>${pais["FIPS"]                     || ""}</td>
+            <td>${pais["FIFA"]                     || ""}</td>
+            <td>${pais["Continent"]                || ""}</td>
+            <td>${pais["Languages"]                || ""}</td>
+            <td>${pais["Geoname ID"]               || ""}</td>
+            <td>${pais["DS"]                       || ""}</td>
+          </tr>`;
+        $tbody.append(fila);
+      });
+
+   })
+   .fail(function(){
+      $("#tabla tbody").html('<tr><td colspan="8" style="color:red;">Error al cargar el JSON.</td></tr>');
+   });
+
+  // Filtrar la primera columna(nombre) con lo ingresado en el buscador
+
+  $("#buscador").on("input",function(){
+     const term = $(this).val().toLowerCase();
+     $("#tabla tbody tr").each(function(){
+        const nombre = $(this).children("td").eq(0).text().toLowerCase();
+        $(this).toggle(nombre.includes(term));
+     });
+  });
+
+});
+</script>
+</body>
+</html>
