@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Formulario – Problema 2</title>
+
+<!--jQuery  jQuery UI y Carga de librerias -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link   href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css" rel="stylesheet">
+<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
+
+<style>
+    body{font-family:Arial,Helvetica,sans-serif;margin:2rem;}
+    .contenedor{display:flex;gap:3rem;align-items:flex-start;}
+    label{font-weight:bold;display:block;margin-top:1rem;}
+    input[type=text]{width:200px;padding:4px 6px;border:1px solid #aaa;border-radius:4px;}
+    button{margin-top:1rem;padding:6px 14px;border:1px solid #888;border-radius:4px;cursor:pointer;}
+    #columna-datos{min-width:200px;}
+    #columna-datos h2{margin-top:0;}
+</style>
+</head>
+
+<body>
+<h2>Problema 2</h2>
+<p>Generar una página HTML que permita ingresar tres valores a través de etiquetas
+   <code>&lt;input type="text"&gt;</code>. Los valores deben mostrarse por consola y
+   en una columna adjunta al presionar el botón.</p>
+
+<div class="contenedor">
+    <!--Formulario -->
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Nombre">
+
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" placeholder="Apellido">
+
+        <label for="fecha">Fecha de nacimiento:</label>
+        <input type="text" id="fecha" placeholder="mm/dd/aaaa">
+
+        <button id="Generar">Generar Mensaje</button>
+    </div>
+
+    <!-- Columna que mostrará los datos -->
+    <div id="columna-datos">
+        <h2>Datos ingresados</h2>
+        <pre id="salida" style="font-size:1rem;margin:0;"></pre>
+    </div>
+</div>
+
+<script>
+$(function(){
+
+    /* Activar el widget datepicker */
+    $("#fecha").datepicker({
+        changeMonth:true,
+        changeYear:true,
+        yearRange:"-120:+0",   
+        dateFormat:"mm/dd/yy"  
+    });
+
+    /* Acción botón */
+    $("#Generar").on("click",function(){
+
+        // Obtener valores
+        const nombre   = $("#nombre").val().trim();
+        const apellido = $("#apellido").val().trim();
+        const fecha    = $("#fecha").val().trim();
+
+        // Mostrar en consola 
+        console.log(nombre);
+        console.log(apellido);
+        console.log(fecha);
+
+        // Mostrar en columna
+        $("#salida").text(`${nombre}\n${apellido}\n${fecha}`);
+    });
+});
+</script>
+</body>
+</html>
